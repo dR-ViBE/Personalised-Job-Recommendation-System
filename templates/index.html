@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Launcher</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Job Recommendation" />
+	<meta name="keywords" content="Job Recommendation" />
+	<meta name="author" content="Job Recommendation" />
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="static/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="static/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="static/css/bootstrap.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="static/css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="static/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<div class="fh5co-loader"></div>
+
+	<aside id="fh5co-aside" role="sidebar" class="text-center" >
+		<div id="fh5co-logo"><a href="#">Job Recommendation System</a></div>
+	</aside>
+	<!-- style="background-image: url(images/img_bg_1_gradient.jpg);" -->
+	<div id="fh5co-main-content">
+		<div class="dt js-dt">
+			<div class="dtc js-dtc">
+				<!-- <div class="simply-countdown-one animate-box" data-animate-effect="fadeInUp"></div> -->
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-lg-7">
+								<div class="fh5co-intro animate-box">
+									<h2>Unlock career opportunities tailored precisely to your unique skillset!</h2>
+									<p>Say goodbye to endless scrolling and let our intelligent system streamline your search, connecting you with the perfect career opportunities. Discover your next career move with confidence, supported by our innovative Job Recommendation System.</p>
+								</div>
+							</div>
+							
+							<div class="col-lg-7 animate-box">
+								<form action="/predict" method="post" id="fh5co-subscribe">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Enter your skills" id="user_input" name="user_input">
+										<input type="submit" value="Search" class="btn btn-primary">
+										<p class="tip">Please enter your skills for Job Recommendation</p>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="recommendations">
+					{% if top_5 %}
+						<h2>Top 5 Recommendations:</h2>
+						<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th>Job Title</th>
+									<th>Company Name</th>
+									<th>City</th>
+									<th>State</th>
+									<th>Skills</th>
+									<th>Level</th>
+									<th>Post Link</th>
+									<th>Last Modified Date</th>
+									<th>First Seen</th>
+									<th>Country</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for job in top_5 %}
+									<tr>
+										<td>{{ job.job_title }}</td>
+										<td>{{ job.company_name }}</td>
+										<td>{{ job.job_city }}</td>
+										<td>{{ job.job_state }}</td>
+										<td>{{ job.job_skills }}</td>
+										<td>{{ job.job_level }}</td>
+										<td>{{ job.job_post_link }}</td>
+										<td>{{ job.last_modified_date }}</td>
+										<td>{{ job.first_seen }}</td>
+										<td>{{ job.job_country }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					{% endif %}
+				</div>
+			</div>		
+			</div>
+		</div>
+
+		<div id="fh5co-footer">
+			<div class="row">
+				<div class="col-md-6">
+					<ul id="fh5co-social">
+						<li><a href="#"><i class="icon-facebook"></i></a></li>
+						<li><a href="#"><i class="icon-twitter"></i></a></li>
+						<li><a href="#"><i class="icon-instagram"></i></a></li>
+						<li><a href="#"><i class="icon-google-plus"></i></a></li>
+						<li><a href="#"><i class="icon-pinterest-square"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- jQuery -->
+	<script src="static/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="static/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="static/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="static/js/jquery.waypoints.min.js"></script>
+	<!-- Count Down -->
+	<script src="static/js/simplyCountdown.js"></script>
+	<!-- Main -->
+	<script src="static/js/main.js"></script>
+
+	</body>
+</html>
+
