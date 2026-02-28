@@ -119,44 +119,66 @@ Ensure you have Python 3.8+ and `pip` installed on your machine.
    python app.py
 ## 📂 Project Structure:
 ```text
-TransLingua/
+Personalised-Job-Recommendation-System/
 │
-├── static_data/                 # Spatial data for isolated characters
-│   ├── A/                       # ~300 .npy sample files per character
-│   ├── B/
-│   ├── C/
-│   └── ...                      # (Remaining alphabet)
+├── templates/                                   # HTML templates for the web interface
+│   └── index.html                               # Front-end user input form
 │
-├── dynamic_data/                # Temporal sequence data for continuous words
-│   ├── hello/                   # 15-40 sequence samples per word
-│   ├── thank_you/
-│   ├── please/
-│   └── ...                      # (10 dynamic words total)
-│
-├── ganeshpr_Project.ipynb       # Main execution and inference pipeline
-├── requirements.txt             # Project dependencies
-└── README.md                    # Project documentation
+├── app.py                                       # Main Flask web application & API routing
+├── Personalized_Job_Recommendation_Phase2.ipynb # ML training, benchmarking, and evaluation notebook
+├── Report_Job_Recommendation_System.pdf         # Comprehensive research and methodology report
+├── requirements.txt                             # Python environment dependencies
+├── svm_model0.pkl                               # Serialized Support Vector Machine model
+├── vectorizer0.pkl                              # Serialized natural language vectorizer
+└── job_data0.pkl                                # Cleaned dataset used for cosine similarity ranking
 ```
 ## 📊 Model Evaluation & Selection
 
 During the research phase, the dataset was processed and trained across seven industry-standard classification algorithms to determine the most accurate prediction engine for job domains:
 
-### 1. Spatial Feature Extraction
-Instead of storing heavy, raw image files (which introduce noise and lighting bias), the pipeline captures specific **Hand and Pose landmarks** via a standard webcam feed using MediaPipe. These spatial coordinates are instantly extracted, normalized, and flattened into lightweight 1D NumPy arrays (`.npy`), ensuring rapid I/O operations and highly efficient model training.
-
-### 2. Static Data Pipeline (Isolated Characters)
-For static manual gestures (e.g., individual letters of the alphabet):
-* **Structure:** Segregated into individual subfolders for each distinct character.
-* **Volume:** Approximately **300 unique `.npy` samples** collected per character.
-* **Capture Method:** Single-frame spatial coordinate extraction designed to capture the exact finger configuration and hand positioning at a specific fraction of a second.
-
-### 3. Dynamic Data Pipeline (Continuous Words)
-For dynamic, multi-motion gestures (e.g., full words or phrases):
-* **Structure:** 10 dedicated subfolders, representing 10 distinct vocabulary words.
-* **Volume:** **15 to 40 complete sequence samples** per word.
-* **Capture Method:** Temporal windowing. Because meaning is derived from motion, each sample captures a continuous sequence of frames over a set timeframe to track the exact spatial trajectory of the gesture.
-
-### 4. Data Quality Assurance & Preprocessing
-To ensure high-fidelity model training and prevent overfitting:
-* **Relative Normalization:** All spatial coordinates are normalized, ensuring the models remain invariant to the user's distance from the camera or varying body proportions.
-* **Consistency:** The automated collection script verifies the matrix shape and integrity of every `.npy` file, guaranteeing uniform data dimensions before the arrays are fed into the Scikit-Learn training pipelines.
+<table>
+  <thead>
+    <tr>
+      <th>Algorithm Evaluated</th>
+      <th>Selection Status</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Support Vector Machine (SVM)</b></td>
+      <td><b>✅ Selected (Best)</b></td>
+      <td><b>Achieved highest Accuracy and ROC scores</b></td>
+    </tr>
+    <tr>
+      <td>Logistic Regression</td>
+      <td>❌ Evaluated</td>
+      <td>Sub-optimal precision compared to SVM</td>
+    </tr>
+    <tr>
+      <td>Random Forest</td>
+      <td>❌ Evaluated</td>
+      <td>High accuracy but computationally heavier</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>❌ Evaluated</td>
+      <td>Strong performance, but SVM yielded better ROC</td>
+    </tr>
+    <tr>
+      <td>Naïve Bayes</td>
+      <td>❌ Evaluated</td>
+      <td>Assumed feature independence reduced accuracy</td>
+    </tr>
+    <tr>
+      <td>K-Nearest Neighbors (KNN)</td>
+      <td>❌ Evaluated</td>
+      <td>Slower inference time at scale</td>
+    </tr>
+    <tr>
+      <td>Decision Tree</td>
+      <td>❌ Evaluated</td>
+      <td>Prone to overfitting on the skills dataset</td>
+    </tr>
+  </tbody>
+</table>
